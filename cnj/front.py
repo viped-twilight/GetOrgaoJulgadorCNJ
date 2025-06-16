@@ -12,7 +12,7 @@ numero_processo = numero_processo.replace('-', "").replace('.', "")
 # 0123456 78 9ABC D EF
 trf_cod = numero_processo[14:16]
 
-with open("../data/justicafederal.json", "r") as f:
+with open("data/justicafederal.json", "r") as f:
     trf = json.load(f)[trf_cod]
 
 endpoint =  f"https://api-publica.datajud.cnj.jus.br/api_publica_{trf}/_search"
