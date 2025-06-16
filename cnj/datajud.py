@@ -1,3 +1,7 @@
+import pandas as pd
+import requests
+from typing import Dict
+
 class DataJud:
     """
     A class designed to interact with the DATAJUD API and process statistical data related to judicial processes.
