@@ -115,3 +115,15 @@ class DataJud:
         query.columns = infos
 
         return query
+
+def get_endpoint(num_processo:str) -> str:
+    # NNNNNNN-DD.AAAA.J.TR.OOOO
+    # 0123456 78 9ABC D EF
+    trf_cod = num_processo[14:16]
+    
+    with open("data/justicafederal.json", "r") as f:
+        trf = json.load(f)[trf_cod]
+    
+    endpoint =  f"https://api-publica.datajud.cnj.jus.br/api_publica_{trf}/_search"
+
+    return endpoint
