@@ -1,5 +1,5 @@
 import streamlit as st
-from datajud import DataJud
+from datajud import DataJud, get_endpoint
 import json
 
 st.title("Consulta de Órgão Julgador - CNJ (Justiça Federal)")
@@ -16,10 +16,10 @@ if st.button("Consultar órgão julgador"):
     if numero_processo:
         info_proc = datajud.requestDATAJUD(
             url=get_endpoint(numero_processo),
-            api_key=datajud.api_key,
+            api_key=datajud.API_KEY,
             num_processo=numero_processo)
-        
-        info_orgao = info_proc
+    
+        info_orgao = info_proc["hits"]["hits"][0]["_source"]["orgaoJulgador"]
         st.subheader("Informações do órgão julgador:")
         st.json(info_orgao)
     else:
