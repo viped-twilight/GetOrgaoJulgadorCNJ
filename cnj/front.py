@@ -24,7 +24,7 @@ if st.button("Consultar órgão julgador"):
             
         info_orgao = {}
         for i, item in enumerate(history):
-            orgao_julgador.__setitem__(
+            info_orgao.__setitem__(
                 i, item["_source"]["orgaoJulgador"]
             )
     
