@@ -18,8 +18,16 @@ if st.button("Consultar órgão julgador"):
             url=get_endpoint(numero_processo),
             api_key=datajud.API_KEY,
             num_processo=numero_processo)
+
+        history = info_proc.get("hits", None).get("hits", None)
+        assert history, "Nenhum resultado encontrado."
+            
+        info_orgao = {}
+        for i, item in enumerate(history):
+            orgao_julgador.__setitem__(
+                i, item["_source"]["orgaoJulgador"]
+            )
     
-        info_orgao = info_proc["hits"]["hits"][0]["_source"]["orgaoJulgador"]
         st.subheader("Informações do órgão julgador:")
         st.json(info_orgao)
     else:
