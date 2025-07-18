@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
 import json
-from typing import Dict
+from typing import LiteralString
 
 class DataJud:
     """
@@ -117,14 +117,20 @@ class DataJud:
 
         return query
 
-def get_endpoint(num_processo:str) -> str:
+def get_endpoint(
+        num_processo:str
+    ) -> str:
     # NNNNNNN-DD.AAAA.J.TR.OOOO
     # 0123456 78 9ABC D EF
-    trf_cod = num_processo[14:16]
-    
-    with open("data/justicafederal.json", "r") as f:
-        trf = json.load(f)[trf_cod]
-    
-    endpoint =  f"https://api-publica.datajud.cnj.jus.br/api_publica_{trf}/_search"
+    trib_cod:str = num_processo[14:16]
+    justica_cod:LiteralString = num_processo[13]
+
+    with open("data/tipojustica.json", "r") as f:
+        tipo_justica:LiteralString = json.load(f)[justica_cod]
+
+    with open(f"data/{tipo_justica}.json", "r") as f:
+        trib:LiteralString = json.load(f)[trib_cod]
+
+    endpoint:LiteralString =  f"https://api-publica.datajud.cnj.jus.br/api_publica_{trib}/_search"
 
     return endpoint
